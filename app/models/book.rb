@@ -26,7 +26,11 @@ class Book < ApplicationRecord
     translation = translation_for(language)
     return nil unless translation&.title.present?
     
-    client = OpenAI::Client.new(access_token: Rails.application.credentials.openai[:api_key])
+    # Skip AI generation if API key is not configured
+    api_key = Rails.application.credentials.dig(:openai, :api_key) || ENV['OPENAI_API_KEY']
+    return nil unless api_key.present?
+    
+    client = OpenAI::Client.new(access_token: api_key)
     
     prompt = "Please provide a concise 500-character summary of the book titled '#{translation.title}'"
     prompt += " by #{translation.author}" if translation.author.present?

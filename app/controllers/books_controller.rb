@@ -5,7 +5,6 @@ class BooksController < ApplicationController
     @books = Book.joins(:book_translations)
                  .where(book_translations: { language: current_language })
                  .popular
-                 .page(params[:page])
                  .limit(20)
   end
 
