@@ -1,0 +1,133 @@
+<%# Hero Section %>
+<section class="text-center py-20 bg-gradient-to-br from-blue-50 to-indigo-100 rounded-lg mb-16">
+  <div class="max-w-4xl mx-auto px-4">
+    <h1 class="text-5xl font-bold text-gray-900 mb-6">
+      Discover Books Worth Reading with 
+      <span class="text-blue-600">AI Summaries</span>
+    </h1>
+    
+    <p class="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
+      Get instant AI-powered summaries to quickly decide if a book deserves your precious reading time.
+    </p>
+    
+    <%# Search Section with Typed.js %>
+    <div class="max-w-2xl mx-auto mb-8">
+      <div class="relative" data-controller="search" data-search-url-value="<%= books_search_path %>">
+        <div class="flex items-center bg-white rounded-full shadow-lg border-2 border-blue-200 focus-within:border-blue-500 transition-colors">
+          <svg class="w-6 h-6 text-gray-400 ml-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+          </svg>
+          
+          <input 
+            type="text" 
+            placeholder="Search for books like..."
+            class="flex-1 py-4 px-4 text-lg rounded-full focus:outline-none"
+            data-search-target="input"
+            data-action="input->search#search blur->search#hideResults"
+          >
+          
+          <button class="bg-blue-600 text-white px-8 py-4 rounded-full hover:bg-blue-700 transition-colors font-semibold">
+            Search
+          </button>
+        </div>
+        
+        <%# Search Results Dropdown %>
+        <div 
+          data-search-target="results" 
+          class="absolute top-full left-0 right-0 bg-white rounded-lg shadow-lg border mt-2 max-h-96 overflow-y-auto hidden z-10"
+        ></div>
+      </div>
+      
+      <%# Typed.js Animation %>
+      <div class="mt-6 text-gray-500">
+        Try searching: 
+        <span 
+          class="font-medium text-blue-600"
+          data-controller="typed"
+          data-typed-strings-value='["Atomic Habits", "The 7 Habits of Highly Effective People", "Sapiens", "Rich Dad Poor Dad", "The Lean Startup", "Deep Work"]'
+          data-typed-type-speed-value="80"
+          data-typed-back-speed-value="50"
+          data-typed-start-delay-value="1000"
+        ></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<%# Popular Books Section %>
+<section class="mb-16">
+  <h2 class="text-3xl font-bold text-gray-900 mb-8">Popular Books with AI Summaries</h2>
+  
+  <% if @popular_books.any? %>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <% @popular_books.each do |book| %>
+        <% translation = book.translation_for('en') %>
+        <% if translation %>
+          <%= link_to book_path(book), class: "block bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow p-6 border" do %>
+            <h3 class="font-bold text-lg text-gray-900 mb-2 line-clamp-2"><%= translation.title %></h3>
+            <% if translation.author.present? %>
+              <p class="text-gray-600 mb-3">by <%= translation.author %></p>
+            <% end %>
+            
+            <% if translation.summary.present? %>
+              <p class="text-gray-700 text-sm line-clamp-3 mb-4"><%= translation.summary %></p>
+            <% else %>
+              <p class="text-gray-500 text-sm mb-4 italic">AI summary will be generated when you view this book</p>
+            <% end %>
+            
+            <div class="flex items-center justify-between">
+              <span class="text-blue-600 font-medium">Read Summary →</span>
+              <% if book.ai_summary_cached? %>
+                <span class="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs font-medium">
+                  ✓ AI Summary Ready
+                </span>
+              <% else %>
+                <span class="bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full text-xs font-medium">
+                  ⚡ Generating Summary
+                </span>
+              <% end %>
+            </div>
+          <% end %>
+        <% end %>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="text-center py-12 bg-white rounded-lg border">
+      <h3 class="text-xl font-medium text-gray-900 mb-2">No books available yet</h3>
+      <p class="text-gray-600">We're building our library of AI-summarized books. Check back soon!</p>
+    </div>
+  <% end %>
+</section>
+
+<%# Features Section %>
+<section class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+  <div class="text-center p-6 bg-white rounded-lg border shadow-sm">
+    <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mx-auto mb-4">
+      <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+      </svg>
+    </div>
+    <h3 class="font-bold text-lg mb-2">Instant AI Summaries</h3>
+    <p class="text-gray-600">Get comprehensive book summaries generated by advanced AI in seconds</p>
+  </div>
+  
+  <div class="text-center p-6 bg-white rounded-lg border shadow-sm">
+    <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mx-auto mb-4">
+      <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+      </svg>
+    </div>
+    <h3 class="font-bold text-lg mb-2">Smart Reading Decisions</h3>
+    <p class="text-gray-600">Quickly decide if a book is worth your time before investing hours reading</p>
+  </div>
+  
+  <div class="text-center p-6 bg-white rounded-lg border shadow-sm">
+    <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mx-auto mb-4">
+      <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+      </svg>
+    </div>
+    <h3 class="font-bold text-lg mb-2">Discover Great Books</h3>
+    <p class="text-gray-600">Find your next favorite book through curated summaries and recommendations</p>
+  </div>
+</section>

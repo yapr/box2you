@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= content_for(:title) || "Box2You - AI Book Summaries" %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="description" content="Get AI-powered book summaries to quickly decide if a book is worth reading. Discover your next great read with Box2You.">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= yield :head %>
+
+    <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
+    <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
+
+    <link rel="icon" href="/icon.png" type="image/png">
+    <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/icon.png">
+
+    <%# Includes all stylesheet files in app/assets/stylesheets %>
+    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body class="bg-gray-50 min-h-screen">
+    <header class="bg-white shadow-sm border-b">
+      <nav class="container mx-auto px-4 py-4">
+        <%= link_to root_path, class: "text-2xl font-bold text-blue-600 hover:text-blue-700" do %>
+          Box2You
+        <% end %>
+      </nav>
+    </header>
+
+    <main class="container mx-auto px-4 py-8">
+      <%= yield %>
+    </main>
+
+    <footer class="bg-white border-t mt-16">
+      <div class="container mx-auto px-4 py-8 text-center text-gray-600">
+        <p>&copy; 2025 Box2You. AI-powered book summaries to help you discover your next great read.</p>
+      </div>
+    </footer>
+  </body>
+</html>
