@@ -61,6 +61,56 @@ books_data = [
     author: "Charles Duhigg",
     popularity_score: 83,
     summary: "An exploration of the science behind habit formation and how to harness this knowledge for personal and organizational change. Duhigg explains the habit loop and provides practical strategies for transformation. Shows how understanding habits can unlock extraordinary results."
+  },
+  # Additional books for pagination testing
+  {
+    isbn: "9780525533580",
+    title: "Can't Hurt Me",
+    author: "David Goggins",
+    popularity_score: 78,
+    summary: "A raw memoir of transformation from a struggling young man to an ultra-endurance athlete and Navy SEAL. Goggins shares his 40% Rule and tactics for mastering the mind. A powerful story about overcoming obstacles and unlocking unlimited potential through mental toughness."
+  },
+  {
+    isbn: "9780735211292",
+    title: "Atomic Habits (Special Edition)",
+    author: "James Clear",
+    popularity_score: 77,
+    summary: "Special edition of the bestselling guide to habit formation. Includes bonus content on advanced habit strategies and real-world applications. Clear's systematic approach makes lasting change accessible to everyone through the power of small, consistent improvements."
+  },
+  {
+    isbn: "9780062563743",
+    title: "Mindset",
+    author: "Carol S. Dweck",
+    popularity_score: 85,
+    summary: "Reveals how success in school, work, sports, and relationships can be dramatically influenced by how we think about our abilities. Dweck introduces the power of growth mindset versus fixed mindset, showing how beliefs about intelligence can impact achievement."
+  },
+  {
+    isbn: "9780062457714",
+    title: "The Subtle Art of Not Giving a F*ck",
+    author: "Mark Manson",
+    popularity_score: 81,
+    summary: "A counterintuitive approach to living a good life that challenges conventional self-help wisdom. Manson argues that improving our lives hinges on our willingness to face negative experiences and choose our struggles wisely. Practical philosophy with humor and profanity."
+  },
+  {
+    isbn: "9781594484805",
+    title: "Drive",
+    author: "Daniel H. Pink",
+    popularity_score: 79,
+    summary: "Reveals the surprising truth about what motivates us in work and life. Pink argues that traditional rewards and punishments are becoming less effective, making the case for autonomy, mastery, and purpose as the key drivers of high performance and satisfaction."
+  },
+  {
+    isbn: "9780743269513",
+    title: "The 4-Hour Workweek",
+    author: "Timothy Ferriss",
+    popularity_score: 76,
+    summary: "A blueprint for escaping the 9-5 grind and joining the 'New Rich' through lifestyle design. Ferriss shares tactics for automating income, outsourcing life, and creating geographic arbitrage. Challenges traditional notions of work and retirement."
+  },
+  {
+    isbn: "9780062316097",
+    title: "Grit",
+    author: "Angela Duckworth",
+    popularity_score: 84,
+    summary: "Shows why talent is overrated and passion and persistence trump everything. Duckworth's research reveals that the secret to achievement is grit - a combination of passion and perseverance for long-term goals. Practical advice for developing this crucial trait."
   }
 ]
 

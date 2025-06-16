@@ -3,10 +3,7 @@
 # Instance variables
 # See https://ddnexus.github.io/pagy/docs/api/pagy#variables
 Pagy::DEFAULT[:items] = 20        # items per page
-Pagy::DEFAULT[:size]  = [1,4,4,1] # nav bar links
-
-# Enable Bootstrap 5 extra for styling
-require 'pagy/extras/bootstrap'
+Pagy::DEFAULT[:size] = 7          # nav bar links (number of page links to show)
 
 # Enable overflow extra for handling large page numbers
 require 'pagy/extras/overflow'
