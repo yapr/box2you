@@ -61,7 +61,17 @@
   <%# Search Results %>
   <% if params[:q].present? %>
     <% if @books.any? %>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <%# Pagination Info %>
+      <div class="mb-6 flex justify-between items-center">
+        <div class="text-gray-600">
+          <%= pagy_info(@pagy) %>
+        </div>
+        <div class="text-sm text-gray-500">
+          Showing page <%= @pagy.page %> of <%= @pagy.pages %>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
         <% @books.each do |book| %>
           <% translation = book.translation_for('en') %>
           <% if translation %>
@@ -94,6 +104,13 @@
           <% end %>
         <% end %>
       </div>
+
+      <%# Pagination Navigation %>
+      <% if @pagy.pages > 1 %>
+        <div class="flex justify-center">
+          <%== pagy_nav(@pagy, classes: "pagination pagination-lg justify-content-center") %>
+        </div>
+      <% end %>
     <% else %>
       <%# No Results %>
       <div class="text-center py-12 bg-white rounded-lg shadow-md">

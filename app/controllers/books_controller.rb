@@ -2,10 +2,11 @@ class BooksController < ApplicationController
   before_action :set_book, only: [:show]
   
   def index
-    @books = Book.joins(:book_translations)
-                 .where(book_translations: { language: current_language })
-                 .popular
-                 .limit(20)
+    books_query = Book.joins(:book_translations)
+                     .where(book_translations: { language: current_language })
+                     .popular
+    
+    @pagy, @books = pagy(books_query, items: 12)
   end
 
   def show
@@ -20,13 +21,15 @@ class BooksController < ApplicationController
 
   def search
     if params[:q].present?
-      @translations = BookTranslation.search_by_title(params[:q])
-                                   .in_language(current_language)
-                                   .includes(:book)
-                                   .limit(20)
+      translations_query = BookTranslation.search_by_title(params[:q])
+                                          .in_language(current_language)
+                                          .includes(:book)
+      
+      @pagy, @translations = pagy(translations_query, items: 20)
       @books = @translations.map(&:book)
     else
       @books = []
+      @pagy = nil
     end
     
     respond_to do |format|

@@ -97,6 +97,16 @@
       <p class="text-gray-600">We're building our library of AI-summarized books. Check back soon!</p>
     </div>
   <% end %>
+
+  <%# View All Books Link %>
+  <div class="text-center mt-8">
+    <%= link_to books_path, class: "inline-flex items-center bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors" do %>
+      View All Books
+      <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+      </svg>
+    <% end %>
+  </div>
 </section>
 
 <%# Features Section %>

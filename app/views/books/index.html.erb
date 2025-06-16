@@ -1,2 +1,107 @@
-<h1>Books#index</h1>
-<p>Find me in app/views/books/index.html.erb</p>
+<% content_for :title, "All Books with AI Summaries | Box2You" %>
+
+<div class="max-w-6xl mx-auto">
+  <%# Back Button %>
+  <div class="mb-6">
+    <%= link_to root_path, class: "inline-flex items-center text-blue-600 hover:text-blue-700 font-medium" do %>
+      <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+      </svg>
+      Back to Home
+    <% end %>
+  </div>
+
+  <%# Page Header %>
+  <div class="mb-8">
+    <h1 class="text-4xl font-bold text-gray-900 mb-4">All Books</h1>
+    <p class="text-xl text-gray-600">Discover books with AI-powered summaries</p>
+  </div>
+
+  <%# Search Box %>
+  <div class="mb-8">
+    <div class="max-w-2xl" data-controller="search" data-search-url-value="<%= search_books_path %>">
+      <div class="relative">
+        <div class="flex items-center bg-white rounded-lg shadow-md border-2 border-gray-200 focus-within:border-blue-500 transition-colors">
+          <svg class="w-5 h-5 text-gray-400 ml-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+          </svg>
+          
+          <%= form_with url: search_books_path, method: :get, local: true, class: "flex-1 flex" do |form| %>
+            <%= form.text_field :q, 
+                placeholder: "Search for books...", 
+                class: "flex-1 py-3 px-4 rounded-l-lg focus:outline-none",
+                data: { search_target: "input", action: "input->search#search blur->search#hideResults" } %>
+            <%= form.submit "Search", class: "bg-blue-600 text-white px-6 py-3 rounded-r-lg hover:bg-blue-700 transition-colors font-semibold" %>
+          <% end %>
+        </div>
+        
+        <%# Search Results Dropdown %>
+        <div 
+          data-search-target="results" 
+          class="absolute top-full left-0 right-0 bg-white rounded-lg shadow-lg border mt-2 max-h-96 overflow-y-auto hidden z-10"
+        ></div>
+      </div>
+    </div>
+  </div>
+
+  <%# Pagination Info %>
+  <div class="mb-6 flex justify-between items-center">
+    <div class="text-gray-600">
+      <%= pagy_info(@pagy) %>
+    </div>
+    <div class="text-sm text-gray-500">
+      Showing page <%= @pagy.page %> of <%= @pagy.pages %>
+    </div>
+  </div>
+
+  <%# Books Grid %>
+  <% if @books.any? %>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+      <% @books.each do |book| %>
+        <% translation = book.translation_for('en') %>
+        <% if translation %>
+          <%= link_to book_path(book), class: "block bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow p-6 border" do %>
+            <h3 class="font-bold text-lg text-gray-900 mb-2 line-clamp-2"><%= translation.title %></h3>
+            
+            <% if translation.author.present? %>
+              <p class="text-gray-600 mb-3">by <%= translation.author %></p>
+            <% end %>
+            
+            <% if translation.summary.present? %>
+              <p class="text-gray-700 text-sm line-clamp-3 mb-4"><%= translation.summary %></p>
+            <% else %>
+              <p class="text-gray-500 text-sm mb-4 italic">AI summary will be generated when you view this book</p>
+            <% end %>
+            
+            <div class="flex items-center justify-between">
+              <span class="text-blue-600 font-medium">Read Summary →</span>
+              <% if book.ai_summary_cached? %>
+                <span class="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs font-medium">
+                  ✓ AI Summary Ready
+                </span>
+              <% else %>
+                <span class="bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full text-xs font-medium">
+                  ⚡ Generating Summary
+                </span>
+              <% end %>
+            </div>
+          <% end %>
+        <% end %>
+      <% end %>
+    </div>
+
+    <%# Pagination Navigation %>
+    <div class="flex justify-center">
+      <%== pagy_nav(@pagy, classes: "pagination pagination-lg justify-content-center") %>
+    </div>
+  <% else %>
+    <%# No Books %>
+    <div class="text-center py-12 bg-white rounded-lg shadow-md">
+      <svg class="w-16 h-16 text-gray-300 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+      </svg>
+      <h3 class="text-xl font-medium text-gray-900 mb-2">No books available</h3>
+      <p class="text-gray-600">We're building our library of AI-summarized books. Check back soon!</p>
+    </div>
+  <% end %>
+</div>
