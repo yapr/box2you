@@ -10,8 +10,8 @@ class CreateBookTranslations < ActiveRecord::Migration[8.0]
       t.timestamps
     end
     add_index :book_translations, :language
-    add_index :book_translations, [:book_id, :language], unique: true
-    
+    add_index :book_translations, [ :book_id, :language ], unique: true
+
     # Full text search index for title
     execute "CREATE INDEX idx_book_translations_title_gin ON book_translations USING gin(to_tsvector('english', title));"
   end

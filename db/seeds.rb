@@ -120,14 +120,14 @@ books_data.each do |book_data|
     b.popularity_score = book_data[:popularity_score]
     b.ai_summary_cached = true
   end
-  
+
   # Create English translation
   translation = book.book_translations.find_or_create_by(language: 'en') do |t|
     t.title = book_data[:title]
     t.author = book_data[:author]
     t.summary = book_data[:summary]
   end
-  
+
   puts "Created/Updated: #{book_data[:title]} by #{book_data[:author]}"
 end
 

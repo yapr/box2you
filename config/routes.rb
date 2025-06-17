@@ -1,16 +1,16 @@
 Rails.application.routes.draw do
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-  
+
   # Root route
   root "home#index"
-  
+
   # Books routes
-  resources :books, only: [:index, :show] do
+  resources :books, only: [ :index, :show ] do
     collection do
       get :search
     end
   end
-  
+
   # Home routes
   get "home/index"
 
