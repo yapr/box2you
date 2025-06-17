@@ -1,0 +1,221 @@
+# Box2You Categories Configuration
+# Based on BISAC Subject Headings with multi-language support
+
+categories:
+  business_economics:
+    slug: "business-economics"
+    bisac_code: "BUS"
+    icon: "briefcase"
+    color: "#3B82F6"
+    translations:
+      en:
+        name: "Business & Economics"
+        description: "Books on entrepreneurship, management, finance, marketing, and economic theory"
+        meta_title: "Business & Economics Books - AI Summaries"
+        meta_description: "Discover essential business and economics books with AI-powered summaries. Learn from top entrepreneurs and economists."
+      ja:
+        name: "ビジネス・経済"
+        description: "起業、経営、金融、マーケティング、経済理論に関する書籍"
+        meta_title: "ビジネス・経済の本 - AI要約"
+        meta_description: "AI要約でビジネス・経済の必読書を発見。トップ起業家や経済学者から学びましょう。"
+
+  self_help:
+    slug: "self-help"
+    bisac_code: "SEL"
+    icon: "user-plus"
+    color: "#10B981"
+    translations:
+      en:
+        name: "Self-Help & Personal Development"
+        description: "Transform your life with books on personal growth, productivity, and success"
+        meta_title: "Self-Help & Personal Development Books"
+        meta_description: "Accelerate your personal growth with AI summaries of the best self-help books."
+      ja:
+        name: "自己啓発・自己成長"
+        description: "自己成長、生産性、成功に関する人生を変える書籍"
+        meta_title: "自己啓発・自己成長の本"
+        meta_description: "AI要約で最高の自己啓発書から学び、個人の成長を加速させましょう。"
+
+  biography_autobiography:
+    slug: "biography"
+    bisac_code: "BIO"
+    icon: "user"
+    color: "#8B5CF6"
+    translations:
+      en:
+        name: "Biography & Autobiography"
+        description: "Life stories of remarkable people who changed the world"
+        meta_title: "Biography & Autobiography Books"
+        meta_description: "Learn from extraordinary lives through AI summaries of inspiring biographies."
+      ja:
+        name: "伝記・自伝"
+        description: "世界を変えた偉大な人物たちの人生物語"
+        meta_title: "伝記・自伝の本"
+        meta_description: "感動的な伝記のAI要約で、偉大な人生から学びましょう。"
+
+  health_fitness:
+    slug: "health-fitness"
+    bisac_code: "HEA"
+    icon: "heart"
+    color: "#EF4444"
+    translations:
+      en:
+        name: "Health & Fitness"
+        description: "Optimize your physical and mental wellbeing with expert guidance"
+        meta_title: "Health & Fitness Books"
+        meta_description: "Improve your health and fitness with AI summaries from leading experts."
+      ja:
+        name: "健康・フィットネス"
+        description: "専門家の指導で身体的・精神的な健康を最適化"
+        meta_title: "健康・フィットネスの本"
+        meta_description: "専門家によるAI要約で健康とフィットネスを改善しましょう。"
+
+  psychology:
+    slug: "psychology"
+    bisac_code: "PSY"
+    icon: "brain"
+    color: "#F59E0B"
+    translations:
+      en:
+        name: "Psychology"
+        description: "Understand the human mind and behavior with psychological insights"
+        meta_title: "Psychology Books - AI Summaries"
+        meta_description: "Explore the human mind through AI summaries of groundbreaking psychology books."
+      ja:
+        name: "心理学"
+        description: "心理学的洞察で人間の心と行動を理解する"
+        meta_title: "心理学の本 - AI要約"
+        meta_description: "画期的な心理学書のAI要約で人間の心を探求しましょう。"
+
+  history:
+    slug: "history"
+    bisac_code: "HIS"
+    icon: "clock"
+    color: "#92400E"
+    translations:
+      en:
+        name: "History"
+        description: "Learn from the past to understand the present and shape the future"
+        meta_title: "History Books - AI Summaries"
+        meta_description: "Understand our world through AI summaries of essential history books."
+      ja:
+        name: "歴史"
+        description: "過去から学び、現在を理解し、未来を形作る"
+        meta_title: "歴史の本 - AI要約"
+        meta_description: "必読の歴史書のAI要約で私たちの世界を理解しましょう。"
+
+  science:
+    slug: "science"
+    bisac_code: "SCI"
+    icon: "atom"
+    color: "#06B6D4"
+    translations:
+      en:
+        name: "Science"
+        description: "Discover the wonders of the universe through scientific exploration"
+        meta_title: "Science Books - AI Summaries"
+        meta_description: "Explore scientific discoveries with AI summaries of groundbreaking science books."
+      ja:
+        name: "科学"
+        description: "科学的探求を通じて宇宙の驚異を発見する"
+        meta_title: "科学の本 - AI要約"
+        meta_description: "画期的な科学書のAI要約で科学的発見を探求しましょう。"
+
+  technology:
+    slug: "technology"
+    bisac_code: "TEC"
+    icon: "cpu"
+    color: "#6366F1"
+    translations:
+      en:
+        name: "Technology"
+        description: "Stay ahead with insights into emerging technologies and digital innovation"
+        meta_title: "Technology Books - AI Summaries"
+        meta_description: "Stay current with technology through AI summaries of tech innovation books."
+      ja:
+        name: "テクノロジー"
+        description: "新興技術とデジタルイノベーションの洞察で先を行く"
+        meta_title: "テクノロジーの本 - AI要約"
+        meta_description: "技術革新書のAI要約でテクノロジーの最新動向を把握しましょう。"
+
+  philosophy:
+    slug: "philosophy"
+    bisac_code: "PHI"
+    icon: "lightbulb"
+    color: "#7C3AED"
+    translations:
+      en:
+        name: "Philosophy"
+        description: "Explore life's big questions and fundamental truths about existence"
+        meta_title: "Philosophy Books - AI Summaries"
+        meta_description: "Contemplate life's big questions with AI summaries of philosophical classics."
+      ja:
+        name: "哲学"
+        description: "人生の大きな問いと存在の根本的真理を探求する"
+        meta_title: "哲学の本 - AI要約"
+        meta_description: "哲学の古典のAI要約で人生の大きな問いを考察しましょう。"
+
+  fiction:
+    slug: "fiction"
+    bisac_code: "FIC"
+    icon: "book-open"
+    color: "#EC4899"
+    translations:
+      en:
+        name: "Fiction"
+        description: "Immerse yourself in compelling stories and imaginative worlds"
+        meta_title: "Fiction Books - AI Summaries"
+        meta_description: "Discover great fiction through AI summaries of compelling novels and stories."
+      ja:
+        name: "小説・フィクション"
+        description: "魅力的な物語と想像の世界に没入する"
+        meta_title: "小説・フィクションの本 - AI要約"
+        meta_description: "魅力的な小説や物語のAI要約で素晴らしいフィクションを発見しましょう。"
+
+# Category hierarchies and relationships
+category_groups:
+  non_fiction:
+    slug: "non-fiction"
+    translations:
+      en:
+        name: "Non-Fiction"
+      ja:
+        name: "ノンフィクション"
+    categories:
+      - business_economics
+      - self_help
+      - biography_autobiography
+      - health_fitness
+      - psychology
+      - history
+      - science
+      - technology
+      - philosophy
+
+  fiction_group:
+    slug: "fiction-group"
+    translations:
+      en:
+        name: "Fiction"
+      ja:
+        name: "フィクション"
+    categories:
+      - fiction
+
+# SEO and URL configuration
+seo:
+  category_path_format: "/{locale}/categories/{slug}"
+  sitemap_priority: 0.8
+  sitemap_changefreq: "weekly"
+
+# Display configuration
+display:
+  grid_columns: 3
+  items_per_page: 12
+  show_book_count: true
+  show_category_descriptions: true
+  featured_categories:
+    - business_economics
+    - self_help
+    - psychology
+    - science
