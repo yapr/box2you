@@ -26,9 +26,16 @@
   <body class="bg-gray-50 min-h-screen">
     <header class="bg-white shadow-sm border-b">
       <nav class="container mx-auto px-4 py-4">
-        <%= link_to root_path, class: "text-2xl font-bold text-blue-600 hover:text-blue-700" do %>
-          Box2You
-        <% end %>
+        <div class="flex items-center justify-between">
+          <%= link_to root_path, class: "text-2xl font-bold text-blue-600 hover:text-blue-700" do %>
+            Box2You
+          <% end %>
+          
+          <div class="flex items-center space-x-6">
+            <%= link_to "本を探す", books_path, class: "text-gray-700 hover:text-blue-600 transition-colors" %>
+            <%= link_to "Amazon商品検索", amazon_products_path, class: "text-gray-700 hover:text-blue-600 transition-colors" %>
+          </div>
+        </div>
       </nav>
     </header>
 

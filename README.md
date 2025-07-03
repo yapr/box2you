@@ -1,13 +1,14 @@
 # Box2You - AI Book Summary Platform
 
 ## 📘 概要
-Box2YouはAI要約機能を備えた本の検索・発見プラットフォームです。ユーザーは本のタイトルで検索し、ChatGPT等のAIが生成した500文字程度の要約を確認することで、読む価値があるかを素早く判断できます。
+Box2YouはAI要約機能を備えた本の検索・発見プラットフォームです。ユーザーは本のタイトルで検索し、ChatGPT等のAIが生成した500文字程度の要約を確認することで、読む価値があるかを素早く判断できます。また、Amazon Product Advertising APIを使用したAmazon商品検索機能も搭載しています。
 
 ## 🎯 主な機能
 
 ### ✨ 既に実装済みの機能
 - **検索機能**: 本のタイトルに対するインクリメンタル検索（pg_search + PostgreSQL full-text search）
 - **AI要約生成**: OpenAI APIを使用したインテリジェントな書籍要約
+- **Amazon商品検索**: vacuum gemを使用したAmazon Product Advertising API連携
 - **多言語対応**: `books` + `book_translations` テーブル構成（現在は英語のみ）
 - **レスポンシブUI**: Tailwind CSSを使用したモダンなデザイン
 - **Typed.js演出**: トップページでのAI風アニメーション効果
@@ -31,6 +32,7 @@ Box2YouはAI要約機能を備えた本の検索・発見プラットフォー�
 - **Ruby on Rails 8.0.2**
 - **PostgreSQL** (pg_search + tsvector、full-text search)
 - **OpenAI API** (ruby-openai gem使用)
+- **Amazon Product Advertising API** (vacuum gem使用)
 
 ### フロントエンド
 - **Importmap + Turbo + Stimulus** (Rails標準)
@@ -67,7 +69,29 @@ bin/rails credentials:edit
 #   api_key: your_openai_api_key_here
 ```
 
-### 4. アプリケーション起動
+### 4. Amazon Product Advertising API キーの設定（オプション）
+Amazon商品検索機能を使用する場合は、以下の設定が必要です：
+
+```bash
+# Rails credentialsで設定
+bin/rails credentials:edit
+
+# 以下を追加:
+# amazon:
+#   access_key: YOUR_ACCESS_KEY
+#   secret_key: YOUR_SECRET_KEY
+#   associate_tag: YOUR_ASSOCIATE_TAG
+#   marketplace: JP  # or US, UK, etc.
+```
+
+**注意**: Amazon PA-APIを使用するには：
+1. [Amazon Associatesプログラム](https://affiliate.amazon.co.jp/)に登録
+2. PA-APIのアクセス権を申請
+3. 180日以内に3件の売上が必要（継続利用のため）
+
+設定しない場合、Amazon商品検索機能は無効になりますが、他の機能は正常に動作します。
+
+### 5. アプリケーション起動
 ```bash
 # Tailwind CSSをビルド
 bin/rails tailwindcss:build
@@ -83,18 +107,26 @@ bundle exec rails server
 ```
 app/
 ├── controllers/
-│   ├── home_controller.rb          # トップページ
-│   └── books_controller.rb         # 書籍一覧・詳細・検索
+│   ├── home_controller.rb              # トップページ
+│   ├── books_controller.rb             # 書籍一覧・詳細・検索
+│   └── amazon_products_controller.rb   # Amazon商品検索
 ├── models/
-│   ├── book.rb                     # 書籍モデル（AI要約生成機能含む）
-│   └── book_translation.rb         # 翻訳モデル（pg_search設定）
+│   ├── book.rb                         # 書籍モデル（AI要約生成機能含む）
+│   └── book_translation.rb             # 翻訳モデル（pg_search設定）
+├── services/
+│   └── amazon_product_service.rb       # Amazon API連携サービス
 ├── views/
-│   ├── home/index.html.erb         # LP風トップページ
-│   ├── books/show.html.erb         # 書籍詳細ページ
-│   └── books/search.html.erb       # 検索結果ページ
-└── javascript/controllers/
-    ├── typed_controller.js         # Typed.js制御
-    └── search_controller.js        # リアルタイム検索
+│   ├── home/index.html.erb             # LP風トップページ
+│   ├── books/show.html.erb             # 書籍詳細ページ
+│   ├── books/search.html.erb           # 検索結果ページ
+│   └── amazon_products/                # Amazon商品検索UI
+│       ├── index.html.erb              # 検索・一覧ページ
+│       └── show.html.erb               # 商品詳細ページ
+├── javascript/controllers/
+│   ├── typed_controller.js             # Typed.js制御
+│   └── search_controller.js            # リアルタイム検索
+└── config/initializers/
+    └── amazon_paapi.rb                 # Amazon API設定
 ```
 
 ## 🔧 データベース設計

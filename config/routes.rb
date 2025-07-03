@@ -11,6 +11,13 @@ Rails.application.routes.draw do
     end
   end
 
+  # Amazon Products routes
+  resources :amazon_products, only: [ :index, :show ], path: 'amazon' do
+    collection do
+      get :search
+    end
+  end
+
   # Home routes
   get "home/index"
 

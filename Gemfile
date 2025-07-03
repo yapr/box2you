@@ -55,6 +55,12 @@ gem "tailwindcss-rails"
 # Pagination
 gem "pagy"
 
+# Amazon Product Advertising API
+gem "vacuum"
+
+# 楽天市場API
+gem "rakuten_web_service"
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"

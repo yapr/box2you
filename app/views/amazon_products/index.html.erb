@@ -1,0 +1,151 @@
+<% content_for :title, "Amazon商品検索" %>
+
+<div class="max-w-6xl mx-auto px-4 py-8">
+  <div class="mb-8">
+    <h1 class="text-3xl font-bold text-gray-900 mb-4">Amazon商品検索</h1>
+    
+    <!-- FIXME: Amazon credentials setup notice -->
+    <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-6">
+      <div class="flex">
+        <div class="ml-3">
+          <p class="text-sm text-yellow-800">
+            <strong>設定が必要です:</strong> Amazon PA-API認証情報を設定してください。
+            <br>
+            <code class="text-xs">rails credentials:edit</code>でcredentialsファイルを編集し、
+            amazon設定を追加してください。
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Search Form -->
+    <%= form_with url: amazon_products_path, method: :get, local: true, class: "mb-6" do |form| %>
+      <div class="flex flex-col sm:flex-row gap-4">
+        <div class="flex-1">
+          <%= form.text_field :search, 
+              value: params[:search], 
+              placeholder: "商品名やキーワードを入力してください",
+              class: "w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" %>
+        </div>
+        
+        <div class="sm:w-48">
+          <%= form.select :search_index, 
+              options_for_select([
+                ['すべて', 'All'],
+                ['本', 'Books'],
+                ['エレクトロニクス', 'Electronics'],
+                ['ホーム＆キッチン', 'HomeAndKitchen'],
+                ['ファッション', 'Fashion'],
+                ['スポーツ', 'SportsAndOutdoors'],
+                ['おもちゃ', 'ToysAndGames'],
+                ['ビューティー', 'Beauty'],
+                ['コンピューター', 'Computers']
+              ], params[:search_index]),
+              { include_blank: false },
+              { class: "px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" } %>
+        </div>
+        
+        <div>
+          <%= form.submit "検索", class: "px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <!-- Search Results -->
+  <% if @search_term.present? %>
+    <div class="mb-4">
+      <h2 class="text-xl font-semibold text-gray-900">
+        「<%= @search_term %>」の検索結果
+        <% if @total_results > 0 %>
+          <span class="text-gray-600 font-normal">（<%= @total_results %>件）</span>
+        <% end %>
+      </h2>
+    </div>
+
+    <% if @products.any? %>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <% @products.each do |product| %>
+          <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
+            <% if product[:image_url].present? %>
+              <div class="aspect-w-3 aspect-h-3 bg-gray-100">
+                <%= image_tag product[:image_url], 
+                    alt: product[:title], 
+                    class: "w-full h-48 object-contain p-4" %>
+              </div>
+            <% end %>
+            
+            <div class="p-4">
+              <h3 class="text-sm font-medium text-gray-900 line-clamp-2 mb-2">
+                <%= product[:title] %>
+              </h3>
+              
+              <% if product[:price] %>
+                <p class="text-lg font-bold text-green-600 mb-2">
+                  <%= product[:price][:display_amount] %>
+                </p>
+              <% end %>
+              
+              <% if product[:prime_eligible] %>
+                <span class="inline-flex items-center px-2 py-1 text-xs font-medium bg-blue-100 text-blue-800 rounded-full mb-2">
+                  Prime対象
+                </span>
+              <% end %>
+              
+              <div class="flex flex-col gap-2">
+                <%= link_to "詳細を見る", amazon_product_path(product[:asin]), 
+                    class: "text-center px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors" %>
+                
+                <div class="grid grid-cols-3 gap-1 text-xs" 
+                     data-controller="product-links" 
+                     data-product-links-product-title-value="<%= product[:title] %>"
+                     data-product-links-affiliate-id-value="<%= RakutenConfig.affiliate_id %>">
+                  <%= link_to "Amazon", product[:detail_page_url], 
+                      target: "_blank", 
+                      class: "text-center px-2 py-1 bg-orange-500 text-white rounded hover:bg-orange-600 transition-colors" %>
+                  <a href="#" target="_blank" 
+                     data-product-links-target="rakutenLink"
+                     class="text-center px-2 py-1 bg-red-500 text-white rounded hover:bg-red-600 transition-colors">
+                    楽天
+                  </a>
+                  <a href="#" target="_blank" 
+                     data-product-links-target="yahooLink"
+                     class="text-center px-2 py-1 bg-purple-500 text-white rounded hover:bg-purple-600 transition-colors">
+                    Yahoo
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+      
+      <!-- Pagination could go here -->
+      <% if @total_results > 10 %>
+        <div class="mt-8 text-center">
+          <p class="text-gray-600">
+            ページネーション機能は今後実装予定です
+          </p>
+        </div>
+      <% end %>
+    <% else %>
+      <div class="text-center py-12">
+        <p class="text-gray-600">「<%= @search_term %>」に関する商品が見つかりませんでした。</p>
+        <p class="text-gray-500 mt-2">別のキーワードで検索してみてください。</p>
+      </div>
+    <% end %>
+  <% else %>
+    <div class="text-center py-12">
+      <p class="text-gray-600">商品名やキーワードを入力して検索してください。</p>
+    </div>
+  <% end %>
+</div>
+
+<style>
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+</style>
